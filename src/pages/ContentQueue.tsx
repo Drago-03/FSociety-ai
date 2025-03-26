@@ -74,13 +74,19 @@ const ContentQueue = () => {
         <div className="p-4 border-b">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <select className="rounded-md border-gray-300 text-sm">
+              <select 
+                className="rounded-md border-gray-300 text-sm"
+                aria-label="Filter by content type"
+              >
                 <option>All Content Types</option>
                 <option>Text</option>
                 <option>Images</option>
                 <option>Videos</option>
               </select>
-              <select className="rounded-md border-gray-300 text-sm">
+              <select 
+                className="rounded-md border-gray-300 text-sm"
+                aria-label="Filter by status"
+              >
                 <option>All Statuses</option>
                 <option>Pending</option>
                 <option>Approved</option>
@@ -111,11 +117,11 @@ const ContentQueue = () => {
                       <AlertTriangle className="w-4 h-4 text-amber-500" />
                       <span className="text-sm text-gray-600">Confidence: {item.confidence}%</span>
                     </div>
-                    {item.analysis && (
+                    {'analysis' in item && (
                       <div className="flex items-center gap-4">
-                        <span className="text-sm text-gray-600">Toxicity: {(item.analysis.toxicity * 100).toFixed(1)}%</span>
+                        <span className="text-sm text-gray-600">Toxicity: {((item.analysis as { toxicity: number }).toxicity * 100).toFixed(1)}%</span>
                         <span className="text-sm text-gray-600">Sentiment: {(item.analysis.sentiment * 100).toFixed(1)}%</span>
-                        {item.analysis.flags.hate && (
+                        {(item.analysis as { flags: { hate: boolean } }).flags.hate && (
                           <span className="px-2 py-1 text-xs font-medium text-red-700 bg-red-100 rounded-full">Hate Speech</span>
                         )}
                         {item.analysis.flags.harassment && (
@@ -129,7 +135,7 @@ const ContentQueue = () => {
                   <button className="p-2 text-green-600 hover:bg-green-50 rounded-full">
                     <CheckCircle className="w-5 h-5" />
                   </button>
-                  <button className="p-2 text-red-600 hover:bg-red-50 rounded-full">
+                  <button className="p-2 text-red-600 hover:bg-red-50 rounded-full" title="Reject">
                     <XCircle className="w-5 h-5" />
                   </button>
                 </div>

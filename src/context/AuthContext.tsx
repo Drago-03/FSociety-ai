@@ -1,15 +1,15 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import toast from 'react-hot-toast';
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "fsociety-ai.firebaseapp.com",
-  projectId: "fsociety-ai",
-  storageBucket: "fsociety-ai.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
@@ -18,10 +18,13 @@ const auth = getAuth(app);
 interface AuthContextType {
   user: any;
   login: (email: string, password: string) => Promise<void>;
+  signup: (email: string, password: string, userData: { companyName: string; companyRole: string; registrationDate: string }) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
   logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
+const googleProvider = new GoogleAuthProvider();
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<any>(null);
@@ -54,8 +57,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const signInWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+      toast.success('Successfully logged in with Google!');
+    } catch (error: any) {
+      toast.error(error.message);
+      throw error;
+    }
+  };
+
+  const signup = async (email: string, password: string, userData: { companyName: string; companyRole: string; registrationDate: string }) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      // Here you would typically store additional user data in Firestore or your backend
+      toast.success('Account created successfully!');
+    } catch (error: any) {
+      toast.error(error.message);
+      throw error;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, signup, signInWithGoogle, logout }}>
       {children}
     </AuthContext.Provider>
   );

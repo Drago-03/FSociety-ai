@@ -74,6 +74,7 @@ const Analytics = () => {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-4">
           <select
+            aria-label="Select time range"
             value={timeRange}
             onChange={(e) => setTimeRange(e.target.value)}
             className="rounded-md border-gray-300 text-sm"
