@@ -1,8 +1,10 @@
-import React from 'react';
-import { AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { AlertTriangle, CheckCircle, XCircle, Loader2 } from 'lucide-react';
+import { aiService } from '../utils/ai-service';
+import toast from 'react-hot-toast';
 
 const ContentQueue = () => {
-  const queueItems = [
+  const [queueItems, setQueueItems] = useState([
     {
       id: '1234',
       content: 'This is a sample content that needs moderation...',
@@ -11,8 +13,55 @@ const ContentQueue = () => {
       status: 'pending',
       timestamp: '2024-03-10T14:30:00Z'
     },
-    // Add more mock items as needed
-  ];
+  ]);
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    loadQueueItems();
+  }, []);
+
+  const loadQueueItems = async () => {
+    setLoading(true);
+    try {
+      // Simulated API call - replace with actual backend integration
+      const mockItems = [
+        {
+          id: '1234',
+          content: 'This is a sample content that needs moderation...',
+          type: 'text',
+          confidence: 89,
+          status: 'pending',
+          timestamp: '2024-03-10T14:30:00Z'
+        },
+        {
+          id: '1235',
+          content: 'Another content piece requiring review and analysis.',
+          type: 'text',
+          confidence: 75,
+          status: 'pending',
+          timestamp: '2024-03-10T14:35:00Z'
+        }
+      ];
+
+      // Analyze content using AI service
+      const analysisResults = await aiService.batchAnalyzeContent(
+        mockItems.map(item => item.content)
+      );
+
+      const enrichedItems = mockItems.map((item, index) => ({
+        ...item,
+        analysis: analysisResults[index]
+      }));
+
+      setQueueItems(enrichedItems);
+    } catch (error) {
+      toast.error('Failed to load content queue');
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -62,6 +111,18 @@ const ContentQueue = () => {
                       <AlertTriangle className="w-4 h-4 text-amber-500" />
                       <span className="text-sm text-gray-600">Confidence: {item.confidence}%</span>
                     </div>
+                    {item.analysis && (
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm text-gray-600">Toxicity: {(item.analysis.toxicity * 100).toFixed(1)}%</span>
+                        <span className="text-sm text-gray-600">Sentiment: {(item.analysis.sentiment * 100).toFixed(1)}%</span>
+                        {item.analysis.flags.hate && (
+                          <span className="px-2 py-1 text-xs font-medium text-red-700 bg-red-100 rounded-full">Hate Speech</span>
+                        )}
+                        {item.analysis.flags.harassment && (
+                          <span className="px-2 py-1 text-xs font-medium text-orange-700 bg-orange-100 rounded-full">Harassment</span>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
