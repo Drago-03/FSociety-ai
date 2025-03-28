@@ -2,12 +2,16 @@ const express = require('express');
 const { LanguageServiceClient } = require('@google-cloud/language');
 const fetch = require('node-fetch');
 const cors = require('./middleware/cors');
+const monitoringRoutes = require('./routes/monitoring');
 
 const app = express();
 const client = new LanguageServiceClient();
 
 app.use(cors);
 app.use(express.json());
+
+// Monitoring routes for web scanning and social media
+app.use('/api/monitoring', monitoringRoutes);
 
 const TOXICITY_THRESHOLD = 0.7;
 const NEGATIVE_SENTIMENT_THRESHOLD = -0.3;

@@ -126,11 +126,11 @@ const Contact = () => {
                 </div>
                 <div className="flex items-center">
                   <Phone className="w-5 h-5 text-indigo-600 mr-3" />
-                  <span className="text-gray-600">+1 (555) 123-4567</span>
+                  <span className="text-gray-600">+91-1234567890</span>
                 </div>
                 <div className="flex items-center">
                   <MapPin className="w-5 h-5 text-indigo-600 mr-3" />
-                  <span className="text-gray-600">New York, NY 10001</span>
+                  <span className="text-gray-600">India 160062</span>
                 </div>
               </div>
             </div>

@@ -1,12 +1,25 @@
 {pkgs}: {
   channel = "stable-24.05";
-  packages = [
-    pkgs.nodejs_20
+  packages = with pkgs; [
+    nodejs_20
+    nodePackages.npm
+    nodePackages.typescript
+    nodePackages.vite
+    git
   ];
+
   idx.extensions = [
-    "svelte.svelte-vscode"
-    "vue.volar"
+    "dbaeumer.vscode-eslint"
+    "esbenp.prettier-vscode"
+    "bradlc.vscode-tailwindcss"
+    "ms-vscode.vscode-typescript-next"
   ];
+
+  idx.workspace = {
+    name = "fsociety-ai";
+    description = "FSociety AI Content Moderation System";
+  };
+
   idx.previews = {
     previews = {
       web = {
@@ -23,5 +36,9 @@
         manager = "web";
       };
     };
+  };
+
+  env = {
+    NODE_ENV = "development";
   };
 }

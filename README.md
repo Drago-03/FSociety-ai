@@ -34,17 +34,20 @@ FSociety AI is a real-time content moderation system leveraging Google's AI serv
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/indiehub/fsociety-ai.git
 cd fsociety-ai
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Configure environment variables:
+
 ```bash
 cp .env.example .env
 ```
@@ -52,6 +55,7 @@ cp .env.example .env
 4. Update the `.env` file with your Firebase and Google Cloud credentials.
 
 5. Start the development server:
+
 ```bash
 npm run dev
 ```
@@ -120,7 +124,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-For support, email contact@indiehub.co or join our Slack community.
+For support, email <contact@indiehub.co> or join our Slack community.
 
 ## Acknowledgments
 

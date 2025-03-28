@@ -22,3 +22,24 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+#environment
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env.*
+
+# Python environment
+venv/
+env/
+*.pyc
+__pycache__/
+
+# Credentials
+backend/credentials/*
+**/service-account.json
