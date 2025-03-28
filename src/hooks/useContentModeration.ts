@@ -1,25 +1,16 @@
 import { useState, useCallback } from 'react';
-import { ContentModerator, ContentEnhancer, ModeratorQueue } from '../utils/nlp';
-import { ContentAnalysis } from '../utils/nlp';
-
-const moderator = new ContentModerator(process.env.GOOGLE_API_KEY || '');
-const queue = ModeratorQueue.getInstance();
+import { ContentAnalysisResult } from '../types/content-analysis';
+import { analyzeContent as apiAnalyzeContent, batchAnalyzeContent } from '../api/ai-service-api';
 
 export function useContentModeration() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [analysis, setAnalysis] = useState<ContentAnalysis | null>(null);
+  const [analysis, setAnalysis] = useState<ContentAnalysisResult | null>(null);
 
   const analyzeContent = useCallback(async (content: string) => {
     setIsAnalyzing(true);
     try {
-      // Preprocess content
-      const enhancedContent = ContentEnhancer.preprocessContent(content);
-      
-      // Extract additional features
-      const features = ContentEnhancer.extractFeatures(content);
-      
-      // Perform analysis
-      const result = await moderator.analyzeContent(enhancedContent);
+      // Call the backend API for content analysis
+      const result = await apiAnalyzeContent(content);
       
       setAnalysis(result);
       return result;
@@ -31,14 +22,23 @@ export function useContentModeration() {
     }
   }, []);
 
-  const queueContent = useCallback((content: string) => {
-    const enhancedContent = ContentEnhancer.preprocessContent(content);
-    queue.addToQueue(enhancedContent);
+  const analyzeBatch = useCallback(async (contents: string[]) => {
+    setIsAnalyzing(true);
+    try {
+      // Call the backend API for batch content analysis
+      const results = await batchAnalyzeContent(contents);
+      return results;
+    } catch (error) {
+      console.error('Batch content moderation failed:', error);
+      throw error;
+    } finally {
+      setIsAnalyzing(false);
+    }
   }, []);
 
   return {
     analyzeContent,
-    queueContent,
+    analyzeBatch,
     isAnalyzing,
     analysis
   };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield } from 'lucide-react';
+import { Shield, Lock } from 'lucide-react';
 
 interface LoadingScreenProps {
   onComplete: () => void;
@@ -45,49 +45,43 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
   if (!showSplash) return null;
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-indigo-900 flex flex-col items-center justify-center z-50">
+    <div className="fixed inset-0 bg-gradient-to-br from-green-900 via-green-800 to-green-950 flex flex-col items-center justify-center z-50 overflow-hidden">
+      {/* Matrix code effect */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none matrix-code-container">
+        <div className="matrix-code"></div>
+      </div>
+      {/* Binary data streams */}
+      <div className="absolute inset-0 flex justify-around pointer-events-none">
+        {[...Array(10)].map((_, i) => (
+          <div key={i} className="h-full w-px bg-gradient-to-b from-transparent via-green-400/30 to-transparent animate-pulse" style={{ animationDelay: `${i * 0.2}s` }}></div>
+        ))}
+      </div>
       <div className="relative">
-        <Shield className="w-24 h-24 text-white animate-pulse" />
-        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 h-16">
-          <svg className="animate-spin" viewBox="0 0 24 24">
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-              fill="none"
-              strokeDasharray="32"
-              strokeLinecap="round"
-              strokeDashoffset="0"
-            />
-            <circle
-              className="opacity-75"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="white"
-              strokeWidth="4"
-              fill="none"
-              strokeDasharray="32"
-              strokeLinecap="round"
-              strokeDashoffset="16"
-            />
-          </svg>
+        <div className="relative">
+          <Shield className="w-24 h-24 text-green-400 animate-pulse" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Lock className="w-12 h-12 text-white animate-pulse" style={{ animationDelay: '0.5s' }} />
+          </div>
+          <div className="absolute -inset-4 border-2 border-green-500/50 rounded-full animate-spin" style={{ animationDuration: '3s' }}></div>
+          <div className="absolute -inset-8 border border-green-400/30 rounded-full animate-spin" style={{ animationDuration: '8s' }}></div>
         </div>
       </div>
-      <h1 className="text-4xl font-bold text-white mt-8 mb-2">FSociety AI</h1>
-      <p className="text-indigo-200 mb-8">Secure Content Moderation</p>
-      <div className="w-64 h-2 bg-indigo-800 rounded-full overflow-hidden">
+      <h1 className="text-4xl font-bold text-white mt-8 mb-2 glitch-text" data-text="FSociety AI">FSociety AI</h1>
+      <p className="text-green-400 mb-8 tracking-wider">SECURE CONTENT MODERATION</p>
+      <div className="w-64 h-3 bg-green-900/50 rounded-full overflow-hidden border border-green-700/50 backdrop-blur-sm">
         <div 
-          className="h-full bg-white transition-all duration-300 ease-out"
+          className="h-full bg-gradient-to-r from-green-500 to-green-300 transition-all duration-300 ease-out relative"
           style={{ width: `${progress}%` }}
-        />
+        >
+          <div className="absolute inset-0 bg-grid-pattern opacity-30"></div>
+        </div>
       </div>
-      <p className="text-indigo-200 mt-4">Loading System...</p>
+      <div className="flex items-center gap-2 mt-4">
+        <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+        <p className="text-green-300 font-mono tracking-wide">INITIALIZING SYSTEM...</p>
+      </div>
     </div>
   );
 };
 
-export default LoadingScreen; 
+export default LoadingScreen;

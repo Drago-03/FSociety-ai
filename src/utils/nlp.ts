@@ -4,8 +4,12 @@ export interface ContentAnalysis {
   toxicity: number;
   sentiment: number;
   categories: string[];
-  confidence: number;
-  needsReview: boolean;
+  flags: {
+    adult: boolean;
+    spam: boolean;
+    hate: boolean;
+    harassment: boolean;
+  };
 }
 
 interface ModerationType {
@@ -55,8 +59,12 @@ export class ContentModerator {
       toxicity: 0,
       sentiment: 0.5,
       categories: [],
-      confidence: 0,
-      needsReview: true
+      flags: {
+        adult: false,
+        spam: false,
+        hate: false,
+        harassment: false
+      }
     };
 
     try {
@@ -64,8 +72,7 @@ export class ContentModerator {
       const scores = this.extractScores(analysis);
       return {
         ...defaultAnalysis,
-        ...scores,
-        needsReview: (scores.toxicity ?? 0) > 0.6 || (scores.confidence ?? 0) < 0.8
+        ...scores
       };
     } catch (error) {
       console.error('Analysis parsing failed:', error);
@@ -76,11 +83,16 @@ export class ContentModerator {
   private extractScores(analysis: string): Partial<ContentAnalysis> {
     // Implementation would parse the AI response and extract relevant scores
     // This is a simplified example
-    const scores = {
+    const scores: Partial<ContentAnalysis> = {
       toxicity: Math.random(), // Replace with actual parsing
       sentiment: Math.random(),
-      confidence: Math.random(),
-      categories: ['general']
+      categories: ['general'],
+      flags: {
+        adult: Math.random() > 0.8,
+        spam: Math.random() > 0.9,
+        hate: Math.random() > 0.95,
+        harassment: Math.random() > 0.9
+      }
     };
 
     return scores;

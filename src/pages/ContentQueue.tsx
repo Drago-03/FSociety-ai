@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { collection, query, orderBy, limit, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../context/AuthContext';
 import { AlertTriangle, CheckCircle, XCircle, Clock, Plus } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { addSampleContent } from '../utils/sampleData';
+import { createVirusParticle, eliminateVirus, showScanComplete } from '../utils/animationEffects';
 
 interface ContentItem {
   id: string;
@@ -21,6 +22,7 @@ const ContentQueue = () => {
   const [contents, setContents] = useState<ContentItem[]>([]);
   const [addingData, setAddingData] = useState(false);
   const [savingId, setSavingId] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     loadContentQueue();
@@ -109,6 +111,29 @@ const ContentQueue = () => {
         item.id === id ? { ...item, status: newStatus } : item
       ));
 
+      // Add animations based on status
+      if (containerRef.current) {
+        if (newStatus === 'rejected') {
+          // Create virus particles for rejected content (threats)
+          const rect = containerRef.current.getBoundingClientRect();
+          for (let i = 0; i < 3; i++) {
+            const x = Math.random() * (rect.width - 50) + 25;
+            const y = Math.random() * (rect.height - 100) + 50;
+            const virus = createVirusParticle(x, y, containerRef.current);
+            
+            // Eliminate the virus after a short delay
+            setTimeout(() => {
+              if (virus.parentNode) {
+                eliminateVirus(virus);
+              }
+            }, 1500 + i * 300);
+          }
+        } else if (newStatus === 'approved') {
+          // Show scan complete animation for approved content
+          showScanComplete(containerRef.current);
+        }
+      }
+
       toast.success(`Content ${newStatus} successfully`);
     } catch (error) {
       console.error('Error updating content status:', error);
@@ -127,7 +152,7 @@ const ContentQueue = () => {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full" ref={containerRef}>
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900">Content Queue</h1>
         <p className="text-gray-600">Review and manage content moderation requests</p>

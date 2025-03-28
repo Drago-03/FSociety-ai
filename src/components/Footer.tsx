@@ -14,7 +14,7 @@ const Footer = () => {
     <footer 
       className={`
         relative mt-auto py-4 px-4
-        bg-gradient-to-r from-indigo-900 via-purple-900 to-indigo-900
+        bg-gradient-to-r from-cyber-green-900 via-cyber-green-800 to-cyber-green-900
         animate-gradient bg-[length:200%_200%] text-white
       `}
     >

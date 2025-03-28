@@ -31,7 +31,7 @@ function App() {
   ];
 
   const Layout = ({ children }: { children: React.ReactNode }) => (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-terminal-black-900 text-gray-100">
       <Sidebar menuItems={menuItems} />
       <div className="flex-1 flex flex-col overflow-hidden">
         <main className="flex-1 overflow-y-auto p-8">

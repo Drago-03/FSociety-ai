@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import AdminSection from '../components/AdminSection';
+import SecurityAnimations from '../components/SecurityAnimations';
 import { Shield, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
 
 const Dashboard = () => {
@@ -140,6 +141,12 @@ const Dashboard = () => {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Security Animations Demo */}
+      <div className="mt-6">
+        <h2 className="text-lg font-medium text-gray-900 mb-4">Security Visualization</h2>
+        <SecurityAnimations />
       </div>
 
       {/* Admin Section */}
