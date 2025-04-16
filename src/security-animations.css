@@ -1,13 +1,14 @@
 /* Security-themed animations for FSociety AI */
+/* Using the blue and teal security color palette */
 
 /* Virus particle animation */
 .virus-particle {
   position: absolute;
   width: 20px;
   height: 20px;
-  background-color: rgba(255, 0, 0, 0.7);
+  background-color: rgba(231, 76, 60, 0.7); /* Alert critical color */
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
   z-index: 100;
   pointer-events: none;
   opacity: 0;
@@ -19,7 +20,7 @@
 .virus-particle::after {
   content: '';
   position: absolute;
-  background-color: rgba(255, 0, 0, 0.7);
+  background-color: rgba(231, 76, 60, 0.7); /* Alert critical color */
   border-radius: 2px;
 }
 
@@ -94,7 +95,7 @@
   position: absolute;
   width: 12px;
   height: 12px;
-  background-color: #ff5722;
+  background-color: #F39C12; /* Alert warning color */
   border-radius: 50% 50% 0 0;
   z-index: 100;
   pointer-events: none;
@@ -107,7 +108,7 @@
   position: absolute;
   width: 6px;
   height: 2px;
-  background-color: #ff5722;
+  background-color: #F39C12; /* Alert warning color */
   top: 2px;
 }
 
@@ -152,7 +153,7 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(0, 255, 0, 0.2) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(52, 152, 219, 0.2) 0%, transparent 70%); /* Primary light color */
   opacity: 0;
   transform: scale(0.5);
   animation: shield-pulse 2s ease-out;
@@ -185,7 +186,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to right, transparent, rgba(0, 255, 0, 0.3), transparent);
+  background: linear-gradient(to right, transparent, rgba(0, 210, 211, 0.3), transparent); /* Data teal color */
   animation: scan-complete-sweep 1s ease-out;
 }
 
@@ -203,7 +204,7 @@
   position: absolute;
   width: 10px;
   height: 10px;
-  background-color: #4caf50;
+  background-color: #3498DB; /* Primary light color */
   border-radius: 2px;
   opacity: 0.8;
   pointer-events: none;

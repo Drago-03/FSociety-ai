@@ -11,6 +11,7 @@ from database import get_db, get_mongo_collection
 from model_utils import ContentModerator
 from document_verification import DocumentVerifier, WebScraper
 from auth import get_current_user, get_optional_user
+from integrations import router as integrations_router
 
 # Configure logging
 logging.basicConfig(level=settings.LOG_LEVEL, format=settings.LOG_FORMAT)
@@ -31,6 +32,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include routers
+app.include_router(integrations_router)
 
 # Initialize services
 content_moderator = ContentModerator()

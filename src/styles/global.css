@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Primary Colors */
+    --color-primary-deep: #2C3E50;
+    --color-primary-light: #3498DB;
+    --color-primary: #2C3E50;
+
+    /* Alert Colors */
+    --color-alert-critical: #E74C3C;
+    --color-alert-warning: #F39C12;
+    --color-alert-success: #2ECC71;
+
+    /* Neutral Colors */
+    --color-neutral-dark: #34495E;
+    --color-neutral-light: #ECF0F1;
+    --color-neutral: #34495E;
+
+    /* Data Colors */
+    --color-data-teal: #008080;
+    --color-data-cyan: #00BCD4;
+    --color-data-blue: #3498DB;
+  }
+
+  body {
+    @apply bg-neutral-light text-neutral-dark;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@layer components {
+  /* Button Styles */
+  .btn {
+    @apply px-4 py-2 rounded-md font-medium transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-primary-light hover:bg-primary-deep text-white;
+  }
+
+  .btn-secondary {
+    @apply bg-neutral-dark hover:bg-primary-deep text-white;
+  }
+
+  .btn-success {
+    @apply bg-alert-success hover:opacity-90 text-white;
+  }
+
+  .btn-warning {
+    @apply bg-alert-warning hover:opacity-90 text-white;
+  }
+
+  .btn-danger {
+    @apply bg-alert-critical hover:opacity-90 text-white;
+  }
+
+  /* Input Styles */
+  .input {
+    @apply block w-full px-3 py-2 border border-neutral-light rounded-md 
+           focus:outline-none focus:ring-2 focus:ring-primary-light focus:border-primary-light
+           bg-white text-neutral-dark placeholder-neutral-dark/50;
+  }
+
+  /* Card Styles */
+  .card {
+    @apply bg-white rounded-lg shadow-sm border border-neutral-light p-4
+           hover:border-primary-light hover:shadow-md transition-all duration-200;
+  }
+
+  /* Alert Styles */
+  .alert {
+    @apply p-4 rounded-md mb-4;
+  }
+
+  .alert-success {
+    @apply bg-alert-success/10 border border-alert-success/20 text-alert-success;
+  }
+
+  .alert-warning {
+    @apply bg-alert-warning/10 border border-alert-warning/20 text-alert-warning;
+  }
+
+  .alert-error {
+    @apply bg-alert-critical/10 border border-alert-critical/20 text-alert-critical;
+  }
+
+  .alert-info {
+    @apply bg-primary-light/10 border border-primary-light/20 text-primary-light;
+  }
+
+  /* Badge Styles */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply bg-primary-light/10 text-primary-light;
+  }
+
+  .badge-success {
+    @apply bg-alert-success/10 text-alert-success;
+  }
+
+  .badge-warning {
+    @apply bg-alert-warning/10 text-alert-warning;
+  }
+
+  .badge-error {
+    @apply bg-alert-critical/10 text-alert-critical;
+  }
+
+  /* Table Styles */
+  .table {
+    @apply min-w-full divide-y divide-neutral-light;
+  }
+
+  .table th {
+    @apply px-6 py-3 bg-neutral-light/50 text-left text-xs font-medium text-neutral-dark uppercase tracking-wider;
+  }
+
+  .table td {
+    @apply px-6 py-4 whitespace-nowrap text-sm text-neutral-dark;
+  }
+
+  /* Navigation Styles */
+  .nav-link {
+    @apply flex items-center px-4 py-2 text-sm font-medium rounded-md
+           transition-colors duration-200;
+  }
+
+  .nav-link-active {
+    @apply bg-primary-light text-white;
+  }
+
+  .nav-link-inactive {
+    @apply text-neutral-dark hover:bg-neutral-light;
+  }
+
+  /* Form Styles */
+  .form-label {
+    @apply block text-sm font-medium text-neutral-dark mb-1;
+  }
+
+  .form-hint {
+    @apply mt-1 text-sm text-neutral-dark/70;
+  }
+
+  .form-error {
+    @apply mt-1 text-sm text-alert-critical;
+  }
+
+  /* Gradient Backgrounds */
+  .gradient-primary {
+    @apply bg-gradient-to-br from-primary-deep to-neutral-dark;
+  }
+
+  .gradient-success {
+    @apply bg-gradient-to-br from-alert-success to-data-teal;
+  }
+
+  .gradient-warning {
+    @apply bg-gradient-to-br from-alert-warning to-alert-critical;
+  }
+} 

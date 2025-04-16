@@ -4,6 +4,30 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Primary Colors
+        primary: {
+          deep: '#2C3E50',
+          light: '#3498DB',
+          DEFAULT: '#2C3E50'
+        },
+        // Alert Colors
+        alert: {
+          critical: '#E74C3C',
+          warning: '#F39C12',
+          success: '#2ECC71'
+        },
+        // Neutral Colors
+        neutral: {
+          dark: '#34495E',
+          light: '#ECF0F1',
+          DEFAULT: '#34495E'
+        },
+        // Data Colors
+        data: {
+          teal: '#008080',
+          cyan: '#00BCD4',
+          blue: '#3498DB'
+        },
         'cyber-green': {
           50: '#f0fdf4',
           100: '#dcfce7',

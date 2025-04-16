@@ -20,6 +20,7 @@
     "@web3-react/injected-connector": "^6.0.7",
     "ethers": "^5.7.2",
     "firebase": "^10.14.1",
+    "framer-motion": "^12.6.3",
     "ipfs-http-client": "^60.0.1",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.344.0",

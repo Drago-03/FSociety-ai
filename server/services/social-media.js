@@ -35,7 +35,7 @@ class SocialMediaMonitor {
     }
   }
 
-  async fetchTwitterPosts(username, bearerToken) {
+  async fetchXPosts(username, bearerToken) {
     const platform = this.platforms.get('twitter');
     await platform.limiter.removeTokens(1);
 
@@ -50,7 +50,7 @@ class SocialMediaMonitor {
       );
       return await response.json();
     } catch (error) {
-      console.error('Error fetching Twitter posts:', error);
+      console.error('Error fetching X (formerly Twitter) posts:', error);
       throw error;
     }
   }
@@ -81,7 +81,7 @@ class SocialMediaMonitor {
           );
           break;
         case 'twitter':
-          results.twitter = await this.fetchTwitterPosts(
+          results.twitter = await this.fetchXPosts(
             config.username,
             config.bearerToken
           );

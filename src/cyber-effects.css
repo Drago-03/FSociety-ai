@@ -18,13 +18,13 @@
 }
 
 .glitch-text::before {
-  color: #0f0;
+  color: #3498DB; /* Primary light color */
   z-index: -1;
   animation: glitch-anim 2s infinite;
 }
 
 .glitch-text::after {
-  color: #f00;
+  color: #E74C3C; /* Alert critical color */
   z-index: -2;
   animation: glitch-anim2 3s infinite;
 }
@@ -84,7 +84,7 @@
   left: 0;
   width: 100%;
   height: 10px;
-  background: linear-gradient(to bottom, transparent, rgba(0, 255, 0, 0.2), transparent);
+  background: linear-gradient(to bottom, transparent, rgba(52, 152, 219, 0.2), transparent); /* Primary light color */
   animation: scanning 3s linear infinite;
 }
 
@@ -99,7 +99,7 @@
 
 /* Terminal typing effect */
 .typing-effect {
-  border-right: 2px solid #0f0;
+  border-right: 2px solid #3498DB; /* Primary light color */
   white-space: nowrap;
   overflow: hidden;
   animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
@@ -112,13 +112,13 @@
 
 @keyframes blink-caret {
   from, to { border-color: transparent }
-  50% { border-color: #0f0 }
+  50% { border-color: #3498DB } /* Primary light color */
 }
 
 /* Digital noise background */
 .bg-grid-pattern {
-  background-image: linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(52, 152, 219, 0.1) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(52, 152, 219, 0.1) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
@@ -127,7 +127,7 @@
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
-  border: 1px solid #0f0;
+  border: 1px solid #3498DB; /* Primary light color */
 }
 
 .hacker-button::before {
@@ -137,7 +137,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.2), transparent); /* Primary light color */
   transition: all 0.6s ease;
 }
 
@@ -147,18 +147,18 @@
 
 /* Pulse effect for important elements */
 .security-pulse {
-  box-shadow: 0 0 0 rgba(0, 255, 0, 0.4);
+  box-shadow: 0 0 0 rgba(52, 152, 219, 0.4); /* Primary light color */
   animation: security-pulse 2s infinite;
 }
 
 @keyframes security-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.4);
+    box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4); /* Primary light color */
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(0, 255, 0, 0);
+    box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); /* Primary light color */
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0);
+    box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); /* Primary light color */
   }
 }

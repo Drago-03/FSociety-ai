@@ -47,17 +47,21 @@ const AdminSection = () => {
     });
 
     try {
-      // Simulated training progress
-      for (let epoch = 1; epoch <= modelConfig.epochs; epoch++) {
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        setTrainingMetrics({
-          accuracy: Math.min(0.5 + (epoch * 0.1), 0.95),
-          loss: Math.max(0.5 - (epoch * 0.1), 0.05),
-          epoch,
-          totalEpochs: modelConfig.epochs
-        });
-      }
+      setTrainingStatus('training');
+      
+      // Simulate training delay
+      const trainingDelay = () => new Promise(resolve => setTimeout(resolve, 2000));
+      await trainingDelay();
+      
+      // Mock training results
+      const mockTrainingResult = {
+        accuracy: Math.min(0.5 + (1 * 0.1), 0.95),
+        loss: Math.max(0.5 - (1 * 0.1), 0.05),
+        epoch: 1,
+        totalEpochs: modelConfig.epochs
+      };
 
+      setTrainingMetrics(mockTrainingResult);
       toast.success('Model training completed successfully!');
     } catch (error) {
       console.error('Training error:', error);

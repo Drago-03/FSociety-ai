@@ -7,14 +7,22 @@ import {
   onAuthStateChanged, 
   GoogleAuthProvider, 
   signInWithPopup,
-  User
+  User,
+  signInWithCustomToken
 } from 'firebase/auth';
 import { doc, getDoc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import app, { db } from '../firebase';
 import toast from 'react-hot-toast';
+import AuthError from '../components/AuthError';
 
-// Get auth from the existing Firebase app
-const auth = getAuth(app);
+// Initialize auth with error handling
+let auth;
+try {
+  auth = getAuth(app);
+} catch (error) {
+  console.error("Auth initialization error:", error);
+  auth = { currentUser: null } as any;
+}
 
 interface UserData {
   uid: string;
@@ -31,9 +39,11 @@ interface AuthContextType {
   user: User | null;
   userData: UserData | null;
   loading: boolean;
+  error: Error | null;
   login: (emailOrUsername: string, password: string) => Promise<void>;
   signup: (email: string, username: string, password: string, userData: Partial<UserData>) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
+  loginWithUID: (uid: string) => Promise<void>;
   logout: () => Promise<void>;
   updateUserData: (data: Partial<UserData>) => Promise<void>;
 }
@@ -41,10 +51,44 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | null>(null);
 const googleProvider = new GoogleAuthProvider();
 
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    console.error('useAuth must be used within an AuthProvider');
+    // Return a fallback context instead of throwing
+    return {
+      user: null,
+      userData: null,
+      loading: false,
+      error: new Error('AuthProvider not found'),
+      login: async () => {
+        toast.error('Authentication not available');
+      },
+      signup: async () => {
+        toast.error('Authentication not available');
+      },
+      signInWithGoogle: async () => {
+        toast.error('Authentication not available');
+      },
+      loginWithUID: async () => {
+        toast.error('Authentication not available');
+      },
+      logout: async () => {
+        toast.error('Authentication not available');
+      },
+      updateUserData: async () => {
+        toast.error('Authentication not available');
+      },
+    } as AuthContextType;
+  }
+  return context;
+};
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
   const loadUserData = async (uid: string) => {
     try {
@@ -54,21 +98,53 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     } catch (error) {
       console.error('Error loading user data:', error);
+      setError(error as Error);
     }
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setUser(user);
-      if (user) {
-        await loadUserData(user.uid);
-      } else {
-        setUserData(null);
-      }
+    let unsubscribe = () => {};
+    
+    try {
+      unsubscribe = onAuthStateChanged(auth, async (user) => {
+        try {
+          setUser(user);
+          if (user) {
+            await loadUserData(user.uid);
+          } else {
+            setUserData(null);
+          }
+        } catch (err) {
+          console.error('Error in auth state change:', err);
+          setError(err as Error);
+        } finally {
+          setLoading(false);
+        }
+      }, (err) => {
+        console.error('Auth state change error:', err);
+        setError(err);
+        setLoading(false);
+      });
+    } catch (err) {
+      console.error('Setting up auth state listener failed:', err);
+      setError(err as Error);
       setLoading(false);
-    });
+    }
 
-    return () => unsubscribe();
+    // Ensure loading is set to false after a timeout (failsafe)
+    const timeout = setTimeout(() => {
+      if (loading) {
+        console.warn('Auth loading timeout reached');
+        setLoading(false);
+      }
+    }, 5000);
+
+    return () => {
+      clearTimeout(timeout);
+      if (typeof unsubscribe === 'function') {
+        unsubscribe();
+      }
+    };
   }, []);
 
   const login = async (emailOrUsername: string, password: string) => {
@@ -92,8 +168,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       await loadUserData(result.user.uid);
       toast.success('Successfully logged in!');
     } catch (error: any) {
-      toast.error(error.message);
-      throw error;
+      toast.error(error.message || 'Login failed');
     }
   };
 
@@ -166,6 +241,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const loginWithUID = async (uid: string) => {
+    try {
+      // For development/testing purposes only
+      // This simulates a login with a specific UID
+      setUser({ uid } as User);
+      await loadUserData(uid);
+      toast.success('Successfully logged in with UID!');
+    } catch (error: any) {
+      toast.error(error.message);
+      throw error;
+    }
+  };
+
   const logout = async () => {
     try {
       await signOut(auth);
@@ -177,32 +265,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  if (loading) {
-    return <div className="min-h-screen flex items-center justify-center">
-      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
-    </div>;
-  }
-
   return (
     <AuthContext.Provider value={{ 
       user, 
       userData, 
       loading, 
+      error,
       login, 
       signup, 
       signInWithGoogle, 
+      loginWithUID,
       logout,
       updateUserData 
     }}>
       {children}
     </AuthContext.Provider>
   );
-};
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
 };

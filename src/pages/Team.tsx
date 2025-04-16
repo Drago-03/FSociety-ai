@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Github, Linkedin, Twitter, Shield, Award, Check, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Github, Linkedin, X, Shield, Award, Check, ExternalLink } from 'lucide-react';
 import { create } from 'ipfs-http-client';
 import { ethers } from 'ethers';
 import { Web3Storage } from 'web3.storage';
@@ -40,7 +40,7 @@ const teamMembers: TeamMember[] = [
     social: {
       github: 'https://github.com/mantejsingh',
       linkedin: 'https://linkedin.com/in/mantejsingh',
-      twitter: 'https://twitter.com/mantejsingh'
+      twitter: 'https://x.com/mantejsingh'
     }
   },
   {
@@ -61,7 +61,7 @@ const teamMembers: TeamMember[] = [
     social: {
       github: 'https://github.com/ishaansharma',
       linkedin: 'https://linkedin.com/in/ishaansharma',
-      twitter: 'https://twitter.com/ishaansharma'
+      twitter: 'https://x.com/ishaansharma'
     }
   },
   {
@@ -72,7 +72,7 @@ const teamMembers: TeamMember[] = [
     social: {
       github: 'https://github.com/ayushsaini',
       linkedin: 'https://linkedin.com/in/ayushsaini',
-      twitter: 'https://twitter.com/ayushsaini'
+      twitter: 'https://x.com/ayushsaini'
     }
   }
 ];
@@ -250,9 +250,9 @@ const Team = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-gray-400 hover:text-blue-400 transition-colors"
-                      title={`${member.name}'s Twitter Profile`}
+                      title={`${member.name}'s X Profile`}
                     >
-                      <Twitter className="w-5 h-5" />
+                      <X className="w-5 h-5" />
                     </a>
                   )}
                 </div>

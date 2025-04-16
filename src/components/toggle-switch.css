@@ -1,0 +1,36 @@
+/* Toggle Switch Styles */
+.toggle-checkbox {
+  right: 0;
+  z-index: 5;
+  opacity: 0;
+  top: 0;
+}
+
+.toggle-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 0 solid #bbb;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-checkbox:checked + .toggle-label {
+  background-color: #4f46e5;
+}
+
+.toggle-checkbox:checked + .toggle-label:before {
+  transform: translateX(1.5rem);
+}
+
+.toggle-label:before {
+  position: absolute;
+  content: "";
+  height: 1.25rem;
+  width: 1.25rem;
+  left: 0.125rem;
+  bottom: 0.125rem;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}

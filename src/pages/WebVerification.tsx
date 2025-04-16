@@ -148,10 +148,10 @@ const WebVerification = () => {
           {scanningProgress > 0 && scanningProgress < 100 && (
             <div className="w-full bg-gray-700 rounded-full h-2.5 mb-4 overflow-hidden">
               <div 
-                className="bg-gradient-to-r from-cyan-500 to-purple-500 h-2.5 rounded-full transition-all duration-300"
+                className="bg-gradient-to-r from-primary-light to-data-teal h-2.5 rounded-full transition-all duration-300"
                 style={{ width: `${scanningProgress}%` }}
               ></div>
-              <p className="text-xs text-cyan-400 mt-1 font-mono">Scanning: {scanningProgress}%</p>
+              <p className="text-xs text-primary-light mt-1 font-mono">Scanning: {scanningProgress}%</p>
             </div>
           )}
           
@@ -216,37 +216,37 @@ const WebVerification = () => {
           {/* Verification Result */}
           {verificationResult && (
             <motion.div 
-              className={`mt-6 p-4 rounded-lg border ${verificationResult.verified ? 'border-green-700 bg-green-900 bg-opacity-30' : 'border-red-700 bg-red-900 bg-opacity-30'}`}
+              className={`mt-6 p-4 rounded-lg border ${verificationResult.verified ? 'border-data-success bg-data-success/10' : 'border-alert-critical bg-alert-critical/10'}`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
               <div className="flex items-start">
                 {verificationResult.verified ? (
-                  <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 mr-3" />
+                  <CheckCircle className="w-5 h-5 text-data-success mt-0.5 mr-3" />
                 ) : (
-                  <AlertTriangle className="w-5 h-5 text-red-400 mt-0.5 mr-3" />
+                  <AlertTriangle className="w-5 h-5 text-alert-critical mt-0.5 mr-3" />
                 )}
                 <div className="w-full">
-                  <h3 className="text-sm font-medium text-cyan-200">
+                  <h3 className="text-sm font-medium text-primary-light">
                     {verificationResult.verified ? 'Content appears authentic' : 'Content may contain misinformation'}
                   </h3>
                   <div className="mt-2 flex items-center">
-                    <span className="text-sm text-cyan-400 font-mono">Confidence:</span>
-                    <div className="ml-2 w-32 bg-gray-700 rounded-full h-2 overflow-hidden">
+                    <span className="text-sm text-primary-light font-mono">Confidence:</span>
+                    <div className="ml-2 w-32 bg-neutral-dark rounded-full h-2 overflow-hidden">
                       <motion.div 
-                        className={`h-2 rounded-full ${verificationResult.verified ? 'bg-green-500' : 'bg-red-500'}`}
+                        className={`h-2 rounded-full ${verificationResult.verified ? 'bg-data-success' : 'bg-alert-critical'}`}
                         initial={{ width: 0 }}
                         animate={{ width: `${verificationResult.confidence * 100}%` }}
                         transition={{ delay: 0.6, duration: 0.8 }}
                       ></motion.div>
                     </div>
-                    <span className="ml-2 text-sm text-cyan-300 font-mono">{(verificationResult.confidence * 100).toFixed(1)}%</span>
+                    <span className="ml-2 text-sm text-primary-light font-mono">{(verificationResult.confidence * 100).toFixed(1)}%</span>
                   </div>
                   {verificationResult.matchedSources.length > 0 && (
                     <div className="mt-3">
-                      <p className="text-sm font-medium text-cyan-300">Matched trusted sources:</p>
-                      <ul className="list-disc list-inside text-sm text-cyan-500 mt-1 font-mono">
+                      <p className="text-sm font-medium text-primary-light">Matched trusted sources:</p>
+                      <ul className="list-disc list-inside text-sm text-primary-light mt-1 font-mono">
                         {verificationResult.matchedSources.map((source, index) => (
                           <motion.li 
                             key={index} 
@@ -268,28 +268,28 @@ const WebVerification = () => {
           {/* Threat Analysis Section */}
           {threatAnalysis && (
             <motion.div 
-              className="mt-6 p-4 rounded-lg border border-cyan-800 bg-gray-900 bg-opacity-70 relative"
+              className="mt-6 p-4 rounded-lg border border-primary-light/30 bg-primary-deep bg-opacity-70 relative"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
               {/* Animated background for critical threats */}
               {threatAnalysis.threatLevel === 'critical' && (
-                <div className="absolute inset-0 bg-red-900 bg-opacity-20 animate-pulse rounded-lg"></div>
+                <div className="absolute inset-0 bg-alert-critical bg-opacity-20 animate-pulse rounded-lg"></div>
               )}
               
               <div className="relative z-10">
-                <h3 className="text-md font-medium text-cyan-300 mb-3 flex items-center">
-                  <Shield className="w-5 h-5 mr-2 text-cyan-400" />
+                <h3 className="text-md font-medium text-primary-light mb-3 flex items-center">
+                  <Shield className="w-5 h-5 mr-2 text-primary-light" />
                   THREAT INTELLIGENCE REPORT
                 </h3>
                 
                 <div className="flex items-center mb-4">
                   <div className="mr-3">
-                    {threatAnalysis.threatLevel === 'none' && <CheckCircle className="w-8 h-8 text-green-400" />}
-                    {threatAnalysis.threatLevel === 'low' && <AlertTriangle className="w-8 h-8 text-yellow-400" />}
-                    {threatAnalysis.threatLevel === 'medium' && <AlertTriangle className="w-8 h-8 text-orange-400" />}
-                    {threatAnalysis.threatLevel === 'high' && <Skull className="w-8 h-8 text-red-400" />}
+                    {threatAnalysis.threatLevel === 'none' && <CheckCircle className="w-8 h-8 text-data-success" />}
+                    {threatAnalysis.threatLevel === 'low' && <AlertTriangle className="w-8 h-8 text-alert-warning" />}
+                    {threatAnalysis.threatLevel === 'medium' && <AlertTriangle className="w-8 h-8 text-alert-warning" />}
+                    {threatAnalysis.threatLevel === 'high' && <Skull className="w-8 h-8 text-alert-critical" />}
                     {threatAnalysis.threatLevel === 'critical' && (
                       <motion.div
                         animate={{ 
@@ -301,17 +301,17 @@ const WebVerification = () => {
                           duration: 2
                         }}
                       >
-                        <Skull className="w-8 h-8 text-red-600" />
+                        <Skull className="w-8 h-8 text-alert-critical" />
                       </motion.div>
                     )}
                   </div>
                   <div>
                     <div className="text-lg font-bold font-mono">
-                      {threatAnalysis.threatLevel === 'none' && <span className="text-green-400">NO THREATS DETECTED</span>}
-                      {threatAnalysis.threatLevel === 'low' && <span className="text-yellow-400">LOW THREAT LEVEL</span>}
-                      {threatAnalysis.threatLevel === 'medium' && <span className="text-orange-400">MEDIUM THREAT LEVEL</span>}
-                      {threatAnalysis.threatLevel === 'high' && <span className="text-red-400">HIGH THREAT LEVEL</span>}
-                      {threatAnalysis.threatLevel === 'critical' && <span className="text-red-600 glitch-effect">CRITICAL THREAT LEVEL</span>}
+                      {threatAnalysis.threatLevel === 'none' && <span className="text-data-success">NO THREATS DETECTED</span>}
+                      {threatAnalysis.threatLevel === 'low' && <span className="text-alert-warning">LOW THREAT LEVEL</span>}
+                      {threatAnalysis.threatLevel === 'medium' && <span className="text-alert-warning">MEDIUM THREAT LEVEL</span>}
+                      {threatAnalysis.threatLevel === 'high' && <span className="text-alert-critical">HIGH THREAT LEVEL</span>}
+                      {threatAnalysis.threatLevel === 'critical' && <span className="text-alert-critical glitch-effect">CRITICAL THREAT LEVEL</span>}
                     </div>
                   </div>
                 </div>
@@ -323,15 +323,15 @@ const WebVerification = () => {
                       {/* Hexagon background */}
                       <polygon 
                         points="50,3 100,28 100,72 50,97 0,72 0,28" 
-                        fill="rgba(8, 47, 73, 0.5)" 
-                        stroke="#0e7490" 
+                        fill="rgba(44, 62, 80, 0.5)" 
+                        stroke="#3498DB" 
                         strokeWidth="1"
                       />
                       
                       {/* Threat category lines */}
-                      <line x1="50" y1="3" x2="50" y2="97" stroke="rgba(14, 116, 144, 0.3)" strokeWidth="1" />
-                      <line x1="0" y1="28" x2="100" y2="72" stroke="rgba(14, 116, 144, 0.3)" strokeWidth="1" />
-                      <line x1="0" y1="72" x2="100" y2="28" stroke="rgba(14, 116, 144, 0.3)" strokeWidth="1" />
+                      <line x1="50" y1="3" x2="50" y2="97" stroke="rgba(52, 152, 219, 0.3)" strokeWidth="1" />
+                      <line x1="0" y1="28" x2="100" y2="72" stroke="rgba(52, 152, 219, 0.3)" strokeWidth="1" />
+                      <line x1="0" y1="72" x2="100" y2="28" stroke="rgba(52, 152, 219, 0.3)" strokeWidth="1" />
                       
                       {/* Threat data polygon */}
                       <motion.polygon 
@@ -343,8 +343,8 @@ const WebVerification = () => {
                           ${50 - 47 * threatAnalysis.categories.malware},${50 + 23.5 * threatAnalysis.categories.malware} 
                           ${50 - 47 * threatAnalysis.categories.misinformation},${50 - 23.5 * threatAnalysis.categories.misinformation}
                         `}
-                        fill="rgba(6, 182, 212, 0.3)"
-                        stroke="#06b6d4"
+                        fill="rgba(0, 210, 211, 0.3)"
+                        stroke="#00d2d3"
                         strokeWidth="1.5"
                         initial={{ opacity: 0, scale: 0 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -354,7 +354,7 @@ const WebVerification = () => {
                       {/* Data points */}
                       <motion.circle 
                         cx="50" cy={50 - 47 * threatAnalysis.categories.hateSpeech} r="3" 
-                        fill="#ef4444" 
+                        fill="#E74C3C" 
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 1 }}
@@ -363,7 +363,7 @@ const WebVerification = () => {
                         cx={50 + 47 * threatAnalysis.categories.misinformation} 
                         cy={50 - 23.5 * threatAnalysis.categories.misinformation} 
                         r="3" 
-                        fill="#eab308" 
+                        fill="#F39C12" 
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 1.1 }}
@@ -372,7 +372,7 @@ const WebVerification = () => {
                         cx={50 + 47 * threatAnalysis.categories.phishing} 
                         cy={50 + 23.5 * threatAnalysis.categories.phishing} 
                         r="3" 
-                        fill="#3b82f6" 
+                        fill="#3498DB" 
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 1.2 }}
@@ -381,7 +381,7 @@ const WebVerification = () => {
                         cx="50" 
                         cy={50 + 47 * threatAnalysis.categories.cyberbullying} 
                         r="3" 
-                        fill="#f97316" 
+                        fill="#F39C12" 
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 1.3 }}
@@ -390,18 +390,18 @@ const WebVerification = () => {
                         cx={50 - 47 * threatAnalysis.categories.malware} 
                         cy={50 + 23.5 * threatAnalysis.categories.malware} 
                         r="3" 
-                        fill="#a855f7" 
+                        fill="#00d2d3" 
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 1.4 }}
                       />
                       
                       {/* Labels */}
-                      <text x="50" y="0" textAnchor="middle" fill="#ef4444" fontSize="8" fontFamily="monospace">Hate Speech</text>
-                      <text x="105" y="25" textAnchor="start" fill="#eab308" fontSize="8" fontFamily="monospace">Misinfo</text>
-                      <text x="105" y="75" textAnchor="start" fill="#3b82f6" fontSize="8" fontFamily="monospace">Phishing</text>
-                      <text x="50" y="100" textAnchor="middle" fill="#f97316" fontSize="8" fontFamily="monospace">Cyberbullying</text>
-                      <text x="-5" y="75" textAnchor="end" fill="#a855f7" fontSize="8" fontFamily="monospace">Malware</text>
+                      <text x="50" y="0" textAnchor="middle" fill="#E74C3C" fontSize="8" fontFamily="monospace">Hate Speech</text>
+                      <text x="105" y="25" textAnchor="start" fill="#F39C12" fontSize="8" fontFamily="monospace">Misinfo</text>
+                      <text x="105" y="75" textAnchor="start" fill="#3498DB" fontSize="8" fontFamily="monospace">Phishing</text>
+                      <text x="50" y="100" textAnchor="middle" fill="#F39C12" fontSize="8" fontFamily="monospace">Cyberbullying</text>
+                      <text x="-5" y="75" textAnchor="end" fill="#00d2d3" fontSize="8" fontFamily="monospace">Malware</text>
                     </svg>
                   </div>
                 </div>
@@ -413,12 +413,12 @@ const WebVerification = () => {
                     <div className="space-y-2">
                       <div>
                         <div className="flex justify-between text-xs mb-1">
-                          <span className="text-cyan-300">Hate Speech</span>
-                          <span className="text-cyan-400 font-mono">{Math.round(threatAnalysis.categories.hateSpeech * 100)}%</span>
+                          <span className="text-primary-light">Hate Speech</span>
+                          <span className="text-primary-light font-mono">{Math.round(threatAnalysis.categories.hateSpeech * 100)}%</span>
                         </div>
-                        <div className="w-full bg-gray-700 rounded-full h-1.5">
+                        <div className="w-full bg-neutral-dark rounded-full h-1.5">
                           <motion.div 
-                            className="bg-red-500 h-1.5 rounded-full" 
+                            className="bg-alert-critical h-1.5 rounded-full" 
                             initial={{ width: 0 }}
                             animate={{ width: `${threatAnalysis.categories.hateSpeech * 100}%` }}
                             transition={{ delay: 0.6, duration: 0.8 }}
@@ -427,12 +427,12 @@ const WebVerification = () => {
                       </div>
                       <div>
                         <div className="flex justify-between text-xs mb-1">
-                          <span className="text-cyan-300">Misinformation</span>
-                          <span className="text-cyan-400 font-mono">{Math.round(threatAnalysis.categories.misinformation * 100)}%</span>
+                          <span className="text-primary-light">Misinformation</span>
+                          <span className="text-primary-light font-mono">{Math.round(threatAnalysis.categories.misinformation * 100)}%</span>
                         </div>
-                        <div className="w-full bg-gray-700 rounded-full h-1.5">
+                        <div className="w-full bg-neutral-dark rounded-full h-1.5">
                           <motion.div 
-                            className="bg-yellow-500 h-1.5 rounded-full" 
+                            className="bg-alert-warning h-1.5 rounded-full" 
                             initial={{ width: 0 }}
                             animate={{ width: `${threatAnalysis.categories.misinformation * 100}%` }}
                             transition={{ delay: 0.7, duration: 0.8 }}
@@ -441,12 +441,12 @@ const WebVerification = () => {
                       </div>
                       <div>
                         <div className="flex justify-between text-xs mb-1">
-                          <span className="text-cyan-300">Cyberbullying</span>
-                          <span className="text-cyan-400 font-mono">{Math.round(threatAnalysis.categories.cyberbullying * 100)}%</span>
+                          <span className="text-primary-light">Cyberbullying</span>
+                          <span className="text-primary-light font-mono">{Math.round(threatAnalysis.categories.cyberbullying * 100)}%</span>
                         </div>
-                        <div className="w-full bg-gray-700 rounded-full h-1.5">
+                        <div className="w-full bg-neutral-dark rounded-full h-1.5">
                           <motion.div 
-                            className="bg-orange-500 h-1.5 rounded-full" 
+                            className="bg-alert-warning h-1.5 rounded-full" 
                             initial={{ width: 0 }}
                             animate={{ width: `${threatAnalysis.categories.cyberbullying * 100}%` }}
                             transition={{ delay: 0.8, duration: 0.8 }}
@@ -460,12 +460,12 @@ const WebVerification = () => {
                     <div className="space-y-2">
                       <div>
                         <div className="flex justify-between text-xs mb-1">
-                          <span className="text-cyan-300">Malware</span>
-                          <span className="text-cyan-400 font-mono">{Math.round(threatAnalysis.categories.malware * 100)}%</span>
+                          <span className="text-primary-light">Malware</span>
+                          <span className="text-primary-light font-mono">{Math.round(threatAnalysis.categories.malware * 100)}%</span>
                         </div>
-                        <div className="w-full bg-gray-700 rounded-full h-1.5">
+                        <div className="w-full bg-neutral-dark rounded-full h-1.5">
                           <motion.div 
-                            className="bg-purple-500 h-1.5 rounded-full" 
+                            className="bg-data-teal h-1.5 rounded-full" 
                             initial={{ width: 0 }}
                             animate={{ width: `${threatAnalysis.categories.malware * 100}%` }}
                             transition={{ delay: 0.9, duration: 0.8 }}
@@ -474,12 +474,12 @@ const WebVerification = () => {
                       </div>
                       <div>
                         <div className="flex justify-between text-xs mb-1">
-                          <span className="text-cyan-300">Phishing</span>
-                          <span className="text-cyan-400 font-mono">{Math.round(threatAnalysis.categories.phishing * 100)}%</span>
+                          <span className="text-primary-light">Phishing</span>
+                          <span className="text-primary-light font-mono">{Math.round(threatAnalysis.categories.phishing * 100)}%</span>
                         </div>
-                        <div className="w-full bg-gray-700 rounded-full h-1.5">
+                        <div className="w-full bg-neutral-dark rounded-full h-1.5">
                           <motion.div 
-                            className="bg-blue-500 h-1.5 rounded-full" 
+                            className="bg-primary-light h-1.5 rounded-full" 
                             initial={{ width: 0 }}
                             animate={{ width: `${threatAnalysis.categories.phishing * 100}%` }}
                             transition={{ delay: 1, duration: 0.8 }}
@@ -498,11 +498,11 @@ const WebVerification = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.1 }}
                   >
-                    <h4 className="text-sm text-cyan-400 mb-2 font-mono flex items-center">
-                      <AlertTriangle className="h-4 w-4 mr-2 text-red-400" />
+                    <h4 className="text-sm text-primary-light mb-2 font-mono flex items-center">
+                      <AlertTriangle className="h-4 w-4 mr-2 text-alert-critical" />
                       DETECTED THREATS
                     </h4>
-                    <ul className="list-disc list-inside text-sm text-red-400 space-y-1">
+                    <ul className="list-disc list-inside text-sm text-alert-critical space-y-1">
                       {threatAnalysis.detectedThreats.map((threat, index) => (
                         <motion.li 
                           key={index} 
@@ -525,11 +525,11 @@ const WebVerification = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.3 }}
                   >
-                    <h4 className="text-sm text-cyan-400 mb-2 font-mono flex items-center">
-                      <Shield className="h-4 w-4 mr-2 text-cyan-400" />
+                    <h4 className="text-sm text-primary-light mb-2 font-mono flex items-center">
+                      <Shield className="h-4 w-4 mr-2 text-primary-light" />
                       SECURITY RECOMMENDATIONS
                     </h4>
-                    <ul className="list-disc list-inside text-sm text-cyan-300 space-y-1">
+                    <ul className="list-disc list-inside text-sm text-primary-light space-y-1">
                       {threatAnalysis.securityRecommendations.map((rec, index) => (
                         <motion.li 
                           key={index}
@@ -654,29 +654,6 @@ const WebVerification = () => {
             border-color: rgba(6, 182, 212, 0.5);
             box-shadow: 0 0 0 rgba(6, 182, 212, 0);
           }
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #0891b2;
-        }
-      `}</style>
-    </div>
-  );bar::-webkit-scrollbar {
-          width: 8px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 8px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: #1f2937;
-          border-radius: 4px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #0e7490;
-          border-radius: 4px;
         }
         
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {

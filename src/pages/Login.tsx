@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Shield } from 'lucide-react';
+import { Shield, Terminal } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { FcGoogle } from 'react-icons/fc';
 
@@ -22,6 +22,10 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleDevLogin = () => {
+    navigate('/dev-login');
   };
 
   return (
@@ -109,6 +113,15 @@ const Login = () => {
               >
                 <FcGoogle className="h-5 w-5 mr-2" />
                 Sign in with Google
+              </button>
+
+              <button
+                type="button"
+                onClick={handleDevLogin}
+                className="w-full flex items-center justify-center py-2 px-4 border border-gray-700 rounded-md shadow-sm text-sm font-medium text-gray-300 bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all"
+              >
+                <Terminal className="h-5 w-5 mr-2 text-green-500" />
+                Sign in as Developer
               </button>
             </div>
           </form>

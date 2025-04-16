@@ -94,8 +94,9 @@ export class DocumentVerifier {
         };
       } catch (apiError) {
         console.warn('API call failed, using mock data:', apiError);
-        // For now, simulate a response
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        // For demonstration, we'll simulate a delay and return mock data
+        const analyzeDelay = () => new Promise(resolve => setTimeout(resolve, 1500));
+        await analyzeDelay();
         
         // Mock verification result
         const result: DocumentVerificationResult = {
@@ -261,8 +262,9 @@ export class DocumentScraper {
     // In a real implementation, this would check the document content
     // against trusted sources to verify information accuracy
     
-    // Simulate API call and processing
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // For demonstration purposes, we'll simulate a response
+    const verifyDelay = () => new Promise(resolve => setTimeout(resolve, 1000));
+    await verifyDelay();
     
     return {
       verified: Math.random() > 0.2,

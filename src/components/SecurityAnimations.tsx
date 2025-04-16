@@ -90,28 +90,30 @@ const SecurityAnimations: React.FC<SecurityAnimationsProps> = ({ containerRef })
   };
 
   return (
-    <div className="p-4 bg-terminal-black-800 rounded-lg border border-cyber-green-700">
-      <h3 className="text-xl font-bold mb-4 text-cyber-green-400">Security Animation Demo</h3>
+    <div className="p-4 bg-primary-deep rounded-lg border border-primary-light/30 shadow-lg shadow-primary-light/20">
+      <h3 className="text-xl font-bold mb-4 text-primary-light glitch-text" data-text="Security Animation Demo">Security Animation Demo</h3>
       
       <div 
         ref={animationContainerRef}
-        className="relative min-h-[200px] bg-terminal-black-900 rounded border border-cyber-green-900 mb-4 overflow-hidden"
+        className="relative min-h-[200px] bg-neutral-dark rounded border border-primary-light/20 mb-4 overflow-hidden scan-effect"
       >
+        {/* Matrix background effect */}
+        <div className="absolute inset-0 opacity-10 pointer-events-none matrix-bg"></div>
         {/* This is where animations will appear */}
         <div className="absolute bottom-4 right-4 flex flex-col gap-2">
           <div 
             ref={trashBinRef}
-            className="w-12 h-12 flex items-center justify-center bg-terminal-black-700 rounded p-2 cursor-pointer"
+            className="w-12 h-12 flex items-center justify-center bg-neutral-dark/80 rounded p-2 cursor-pointer"
           >
-            <Trash2 className="w-8 h-8 text-cyber-green-500" />
+            <Trash2 className="w-8 h-8 text-primary-light" />
           </div>
           
           <div 
             ref={shieldRef}
-            className="w-12 h-12 flex items-center justify-center bg-terminal-black-700 rounded p-2 cursor-pointer"
+            className="w-12 h-12 flex items-center justify-center bg-neutral-dark/80 rounded p-2 cursor-pointer"
             onClick={handleActivateShield}
           >
-            <Shield className="w-8 h-8 text-cyber-green-500" />
+            <Shield className="w-8 h-8 text-primary-light" />
           </div>
         </div>
       </div>
@@ -119,14 +121,14 @@ const SecurityAnimations: React.FC<SecurityAnimationsProps> = ({ containerRef })
       <div className="flex flex-wrap gap-3">
         <button 
           onClick={handleCreateVirus}
-          className="px-4 py-2 bg-red-900 text-white rounded hover:bg-red-800 transition-colors hacker-button"
+          className="px-4 py-2 bg-alert-critical text-white rounded hover:bg-alert-critical/80 transition-colors hacker-button"
         >
           Create Virus
         </button>
         
         <button 
           onClick={handleCreateBug}
-          className="px-4 py-2 bg-orange-900 text-white rounded hover:bg-orange-800 transition-colors hacker-button"
+          className="px-4 py-2 bg-alert-warning text-white rounded hover:bg-alert-warning/80 transition-colors hacker-button"
         >
           <Bug className="inline-block mr-1 w-4 h-4" />
           Release Bug
@@ -134,21 +136,21 @@ const SecurityAnimations: React.FC<SecurityAnimationsProps> = ({ containerRef })
         
         <button 
           onClick={handleActivateShield}
-          className="px-4 py-2 bg-cyber-green-900 text-white rounded hover:bg-cyber-green-800 transition-colors hacker-button"
+          className="px-4 py-2 bg-primary-light text-white rounded hover:bg-primary-deep transition-colors hacker-button"
         >
           Activate Shield
         </button>
         
         <button 
           onClick={handleScanComplete}
-          className="px-4 py-2 bg-blue-900 text-white rounded hover:bg-blue-800 transition-colors hacker-button"
+          className="px-4 py-2 bg-data-teal text-white rounded hover:bg-data-teal/80 transition-colors hacker-button"
         >
           Run Scan
         </button>
         
         <button 
           onClick={handleDataTransfer}
-          className="px-4 py-2 bg-purple-900 text-white rounded hover:bg-purple-800 transition-colors hacker-button"
+          className="px-4 py-2 bg-data-cyan text-white rounded hover:bg-data-cyan/80 transition-colors hacker-button"
         >
           Transfer Data
         </button>

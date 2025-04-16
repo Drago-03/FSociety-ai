@@ -63,7 +63,7 @@ const ContentQueue = () => {
         return <XCircle className="w-5 h-5 text-red-500" />;
       case 'pending':
       default:
-        return <Clock className="w-5 h-5 text-yellow-500" />;
+        return <Clock className="w-5 h-5 text-yellow-500 animate-pulse" />;
     }
   };
 
@@ -154,8 +154,8 @@ const ContentQueue = () => {
   return (
     <div className="w-full" ref={containerRef}>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Content Queue</h1>
-        <p className="text-gray-600">Review and manage content moderation requests</p>
+        <h1 className="text-2xl font-bold text-cyber-green-400 glitch-text" data-text="Content Queue">Content Queue</h1>
+        <p className="text-gray-300">Review and manage content moderation requests</p>
       </div>
 
       {contents.length === 0 ? (

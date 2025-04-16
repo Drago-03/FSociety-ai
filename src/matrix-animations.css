@@ -13,13 +13,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  color: #0f0;
+  color: #3498DB; /* Primary light color */
   font-family: monospace;
   font-size: 1.2rem;
   line-height: 1;
   letter-spacing: 0.1em;
   white-space: nowrap;
-  text-shadow: 0 0 5px #0f0;
+  text-shadow: 0 0 5px #3498DB; /* Primary light color */
   animation: matrix-rain 10s linear infinite;
 }
 
@@ -35,8 +35,8 @@
 /* Matrix code effect */
 .matrix-code {
   font-family: monospace;
-  color: #0f0;
-  text-shadow: 0 0 5px #0f0;
+  color: #3498DB; /* Primary light color */
+  text-shadow: 0 0 5px #3498DB; /* Primary light color */
   overflow: hidden;
   white-space: nowrap;
 }
@@ -66,9 +66,9 @@
 
 /* Matrix background */
 .matrix-bg {
-  background-color: #000;
-  background-image: linear-gradient(rgba(0, 255, 0, 0.05) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(0, 255, 0, 0.05) 1px, transparent 1px);
+  background-color: #2C3E50; /* Primary deep color */
+  background-image: linear-gradient(rgba(52, 152, 219, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(52, 152, 219, 0.05) 1px, transparent 1px);
   background-size: 20px 20px;
   position: relative;
 }
@@ -80,7 +80,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, transparent 50%, rgba(0, 0, 0, 0.7) 100%);
+  background: radial-gradient(circle, transparent 50%, rgba(44, 62, 80, 0.7) 100%); /* Primary deep with opacity */
   pointer-events: none;
 }
 
@@ -98,7 +98,7 @@
   left: 0;
   width: 0;
   height: 100%;
-  color: #0f0;
+  color: #3498DB; /* Primary light color */
   overflow: hidden;
   white-space: nowrap;
   animation: matrix-reveal 2s steps(40) forwards;

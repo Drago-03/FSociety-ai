@@ -71,8 +71,8 @@ const Dashboard = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-600">Monitor and manage content moderation</p>
+          <h1 className="text-2xl font-bold text-cyber-green-400 glitch-text" data-text="Dashboard">Dashboard</h1>
+          <p className="text-gray-300">Monitor and manage content moderation</p>
         </div>
       </div>
 

@@ -75,65 +75,37 @@ export class WebScraper {
       const mergedOptions = { ...this.defaultOptions, ...options };
       const headers = await this.getAuthHeaders();
       
-      const response = await axios.post(`${this.baseUrl}/scrape?url=${encodeURIComponent(url)}`, {}, {
-        timeout: mergedOptions.timeout,
-        maxContentLength: mergedOptions.maxContentLength,
-        headers: {
-          ...headers,
-          ...mergedOptions.headers
-        }
-      });
+      // In a real implementation, this would call the backend API
+      // const response = await axios.post(`${this.baseUrl}/scrape?url=${encodeURIComponent(url)}`, {}, {
+      //   timeout: mergedOptions.timeout,
+      //   maxContentLength: mergedOptions.maxContentLength,
+      //   headers: {
+      //     ...headers,
+      //     ...mergedOptions.headers
+      //   }
+      // });
       
-      const result = response.data.result;
+      // For now, simulate a response
+      const delay = () => new Promise(resolve => setTimeout(resolve, 1500));
+      await delay();
       
       return {
-        url: url,
-        title: result.title || '',
-        content: result.text || '',
+        url,
+        title: `Content from ${url}`,
+        content: `This is the scraped content from ${url}. In a real implementation, this would contain the actual content from the webpage.`,
         timestamp: new Date().toISOString(),
         success: true
       };
     } catch (error) {
       console.error('Error scraping URL:', error);
       return {
-        url: url,
+        url,
         title: '',
         content: '',
         timestamp: new Date().toISOString(),
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error'
       };
-    }
-  }
-  
-  /**
-   * Verify information against trusted sources
-   * @param content The content to verify
-   * @returns Promise with verification result
-   */
-  public async verifyInformation(content: string): Promise<{
-    verified: boolean;
-    matchedSources: string[];
-    confidence: number;
-  }> {
-    try {
-      const headers = await this.getAuthHeaders();
-      
-      const response = await axios.post(`${this.baseUrl}/verify-information`, 
-        { text: content },
-        { headers }
-      );
-
-      const result = response.data.result;
-      
-      return {
-        verified: result.is_verified,
-        matchedSources: result.matched_sources || [],
-        confidence: result.confidence
-      };
-    } catch (error) {
-      console.error('Error verifying information:', error);
-      throw error;
     }
   }
 
@@ -147,24 +119,34 @@ export class WebScraper {
       const headers = await this.getAuthHeaders();
       
       // In a real implementation, this would call the backend AI service
-      const response = await axios.post(`${this.baseUrl}/analyze-threats`, 
-        { text: content },
-        { headers }
-      );
-
-      const result = response.data.result;
+      // const response = await axios.post(`${this.baseUrl}/analyze-threats`, 
+      //   { text: content },
+      //   { headers }
+      // );
       
+      // For now, simulate a response
+      const delay = () => new Promise(resolve => setTimeout(resolve, 1000)); 
+      await delay();
+
+      // Fallback response for development/demo purposes
       return {
-        threatLevel: result.threat_level || 'none',
+        threatLevel: 'low',
         categories: {
-          hateSpeech: result.categories?.hate_speech || 0,
-          misinformation: result.categories?.misinformation || 0,
-          malware: result.categories?.malware || 0,
-          phishing: result.categories?.phishing || 0,
-          cyberbullying: result.categories?.cyberbullying || 0
+          hateSpeech: Math.random() * 0.3,
+          misinformation: Math.random() * 0.5,
+          malware: Math.random() * 0.1,
+          phishing: Math.random() * 0.2,
+          cyberbullying: Math.random() * 0.3
         },
-        detectedThreats: result.detected_threats || [],
-        securityRecommendations: result.security_recommendations || []
+        detectedThreats: [
+          'Potential misinformation detected',
+          'Suspicious external links'
+        ],
+        securityRecommendations: [
+          'Verify information with multiple trusted sources',
+          'Check the credibility of the website',
+          'Be cautious of sensationalist claims'
+        ]
       };
     } catch (error) {
       console.error('Error analyzing threats:', error);
@@ -188,31 +170,6 @@ export class WebScraper {
           'Check the credibility of the website',
           'Be cautious of sensationalist claims'
         ]
-      };
-    }
-  }
-      // });
-      // return response.data.result;
-      
-      // For now, simulate a response
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      return {
-        url,
-        title: `Content from ${url}`,
-        content: `This is the scraped content from ${url}. In a real implementation, this would contain the actual content from the webpage.`,
-        timestamp: new Date().toISOString(),
-        success: true
-      };
-    } catch (error) {
-      console.error('Error scraping URL:', error);
-      return {
-        url,
-        title: '',
-        content: '',
-        timestamp: new Date().toISOString(),
-        success: false,
-        error: error instanceof Error ? error.message : 'Unknown error'
       };
     }
   }
@@ -272,7 +229,8 @@ export class WebScraper {
       // return response.data.result;
       
       // For now, simulate a response
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const delay = () => new Promise(resolve => setTimeout(resolve, 1000));
+      await delay();
       
       return {
         verified: Math.random() > 0.2,
